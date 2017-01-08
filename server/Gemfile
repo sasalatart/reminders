@@ -1,13 +1,20 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'thin'
+gem 'rack-contrib'
 
 gem 'rake'
 
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
-gem 'annotate'
 
 gem 'bcrypt'
+gem 'jwt'
+
+group :development do
+  gem 'annotate'
+  gem 'shotgun'
+end

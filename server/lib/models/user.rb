@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
   include BCrypt
   include Authenticable
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true,
+                    uniqueness: true,
+                    format: { with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
+                              message: 'must have correct format' }
 
   has_secure_password
 

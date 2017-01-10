@@ -6,6 +6,8 @@
 #  email           :string
 #  password_digest :string
 #  token           :string
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 require 'bcrypt'
@@ -14,6 +16,8 @@ require_relative './concerns/authenticable'
 class User < ActiveRecord::Base
   include BCrypt
   include Authenticable
+
+  has_many :reminders, dependent: :destroy
 
   validates :email, presence: true,
                     uniqueness: true,

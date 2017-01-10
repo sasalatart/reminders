@@ -1,4 +1,9 @@
 get '/reminders' do
+  reminders = {}
+  reminders[:with_date] = @current_user.reminders.where.not(due_date: nil)
+  reminders[:without_date] = @current_user.reminders.where(due_date: nil)
+
+  json reminders: reminders
 end
 
 post '/reminders/create', allows: [:title, :body, :due_date] do

@@ -95,14 +95,16 @@ class ReminderForm extends React.Component {
                   onChange={this.onDateChange}
                   dateFormat="DD/MM/YYYY"
                   className="input" />
-              </div> }
+              </div>
+            }
 
             { this.state.moreFields &&
               <TextAreaInput
                 name="body"
                 value={this.state.reminder.body}
                 placehodler="body"
-                onChange={this.onBodyChange} /> }
+                onChange={this.onBodyChange} />
+            }
 
             <SubmitInput
               loading={this.state.loading}

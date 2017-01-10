@@ -18,29 +18,27 @@ class Header extends React.Component {
 
   render() {
     return(
-      <div className="hero-head">
-        <header className="nav">
-          <div className="container">
-            <div className="nav-left">
-              <Link to="/" className="nav-item">Reminders</Link>
-            </div>
-              { this.props.loggedIn ? (
-                <div className="nav-right nav-menu">
-                  <Link to="/" className="nav-item">Dashboard</Link>
-                  <a onClick={this.onLogout} className="nav-item">Logout</a>
-                </div>
-              ) : (
-                <div className="nav-right nav-menu">
-                  { this.props.route === '/login' ? (
-                    <Link to="/signup" className="nav-item">Signup</Link>
-                  ) : (
-                    <Link to="/login" className="nav-item">Login</Link>
-                  ) }
-                </div>
-              ) }
+      <header className="nav">
+        <div className="container">
+          <div className="nav-left">
+            <Link to="/" className="nav-item">Reminders</Link>
           </div>
-        </header>
-      </div>
+            { this.props.loggedIn ? (
+              <div className="nav-right nav-menu">
+                <Link to="/" className="nav-item">Dashboard</Link>
+                <a onClick={this.onLogout} className="nav-item">Logout</a>
+              </div>
+            ) : (
+              <div className="nav-right nav-menu">
+                { this.props.route === '/login' ? (
+                  <Link to="/signup" className="nav-item">Signup</Link>
+                ) : (
+                  <Link to="/login" className="nav-item">Login</Link>
+                ) }
+              </div>
+            ) }
+        </div>
+      </header>
     );
   }
 }

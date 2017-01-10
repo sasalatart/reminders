@@ -33,15 +33,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <section className="hero is-dark is-fullheight">
+      <div className="is-full-height is-flex is-flex-column">
         <Header route={this.props.location.pathname} loggedIn={this.state.loggedIn} onLogout={this.onLogout} />
-        <div className="hero-body">
+        <div className="is-body">
           <div className="container">
             {React.cloneElement(this.props.children, { onLogin: this.onLogin, onSignup: this.onLogin })}
           </div>
         </div>
         <Footer />
-      </section>
+      </div>
     )
   };
 }

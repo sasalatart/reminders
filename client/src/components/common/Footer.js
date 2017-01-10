@@ -2,11 +2,11 @@ import React from 'react';
 
 const Footer = () => {
   return(
-    <div className="hero-foot">
+    <footer>
       <nav className="tabs is-boxed is-fullwidth">
-        <div className="container"></div>
+        <div className="container">Footer</div>
       </nav>
-    </div>
+    </footer>
   )
 }
 

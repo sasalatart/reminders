@@ -3,3 +3,32 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.is-full-height {
+  min-height: 100vh;
+  background-image: linear-gradient(141deg, #dfd8d8 0%, whitesmoke 71%, white 100%);
+}
+
+.is-flex {
+  display: flex;
+}
+
+.is-flex-column {
+  flex-direction: column;
+}
+
+.is-body {
+  flex: 1;
+}
+
+header, footer {
+  flex: 0;
+}
+
+header {
+  margin-bottom: 1em;
+}
+
+footer {
+  padding-bottom: 2em;
+}

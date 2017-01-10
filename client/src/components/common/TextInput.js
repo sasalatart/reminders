@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react'
 
 const TextInput = ({name, value, placeholder, onChange, isPassword=false}) => {
   return(
-    <p className="control">
+    <div className="control">
       <input
         className="input"
         type={isPassword ? 'password' : 'text'}
@@ -10,7 +10,7 @@ const TextInput = ({name, value, placeholder, onChange, isPassword=false}) => {
         value={value}
         placeholder={placeholder}
         onChange={onChange} />
-    </p>
+    </div>
   );
 };
 

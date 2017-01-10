@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const SubmitInput = ({ loading, onSubmit }) => {
   return(
-    <p className="control">
+    <div className="control">
       <button
         className={loading ? 'button is-primary is-loading' : 'button is-primary'}
         type="button"
@@ -10,7 +10,7 @@ const SubmitInput = ({ loading, onSubmit }) => {
         disabled={loading}>
         {loading ? 'Submitting...' : 'Submit'}
       </button>
-    </p>
+    </div>
   );
 };
 

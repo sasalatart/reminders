@@ -4,6 +4,7 @@ import App from './components/App';
 import SignupPage from './components/signup/SignupPage';
 import LoginPage from './components/login/LoginPage';
 import DashboardPage from './components/dashboard/DashboardPage';
+import NewReminderPage from './components/dashboard/NewReminderPage';
 
 function requireAuth() {
   let currentToken = localStorage.getItem('token');
@@ -17,5 +18,6 @@ export default(
     <IndexRoute component={DashboardPage} onEnter={requireAuth} />
     <Route path="signup" component={SignupPage} />
     <Route path="login" component={LoginPage} />
+    <Route path="new_reminder" component={NewReminderPage} />
   </Route>
 )

@@ -24,11 +24,7 @@ class SignupForm extends React.Component {
   onSubmit() {
     this.setState({ loading: true });
 
-    axios.post('/signup', {
-      email: this.state.form.email,
-      password: this.state.form.password,
-      password_confirmation: this.state.form.passwordConfirmation
-    }).then(response => {
+    axios.post('/signup', this.state.form).then(response => {
       this.props.onSignup(response.data.jwt);
     }).catch(error => {
       iziToast.error({

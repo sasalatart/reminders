@@ -10,9 +10,8 @@ class Header extends React.Component {
   }
 
   onLogout() {
-    axios.get('/logout', {
-      'headers': { 'token': localStorage.getItem('token') }
-    }).then(response => {
+    axios.defaults.headers.common['token'] = localStorage.getItem('token');
+    axios.get('/logout').then(response => {
       this.props.onLogout();
     });
   }

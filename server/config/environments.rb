@@ -7,10 +7,10 @@ database_config = {
 
 configure :development do
   set :database,
-      database_config.merge(database: 'TODO_development', host: 'localhost')
+      database_config.merge(database: 'REMINDERS_development', host: 'localhost')
 end
 
 configure :production do
   set :database,
-      database_config.merge(database: 'TODO_production', host: 'postgres_db')
+      database_config.merge(database: 'REMINDERS_production', host: 'postgres_db')
 end

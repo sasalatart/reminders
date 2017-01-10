@@ -1,4 +1,5 @@
 require_relative './user_handlers'
+require_relative './reminder_handlers'
 
 before /^(?!\/(signup|login))/ do
   @current_user = User.find_by_jwt(request.env['HTTP_TOKEN'])

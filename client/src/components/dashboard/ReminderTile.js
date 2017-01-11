@@ -25,7 +25,7 @@ class ReminderTile extends React.Component {
 
   deleteRequest() {
     axios.defaults.headers.common['token'] = localStorage.getItem('token');
-    axios.post('/reminders/delete/' + this.props.id).then(response => {
+    axios.post('/reminders/delete', { id: this.props.id }).then(response => {
       this.props.onDelete(response.data.reminder);
       iziToast.success({ title: 'Reminder deleted.' });
     }).catch(error => {

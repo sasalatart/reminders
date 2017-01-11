@@ -27,7 +27,7 @@ put '/reminders/update', allows: [:id, :title, :body, :due_date] do
   respond_for_reminder(reminder.update(params), reminder)
 end
 
-post '/reminders/delete/:id' do
+post '/reminders/delete' do
   reminder = Reminder.find_by(id: params[:id])
   raise(NotFoundError, reminder.class.name) unless reminder && reminder.destroy
 

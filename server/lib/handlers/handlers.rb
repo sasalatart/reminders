@@ -1,4 +1,3 @@
-require_relative './errors'
 require_relative './user_handlers'
 require_relative './reminder_handlers'
 
@@ -10,9 +9,4 @@ end
 after do
   pass unless content_type == 'application/json' && !response.body.empty?
   body JSON.parse(response.body[0]).to_camelback_keys.to_json
-end
-
-error NotFoundError do
-  status 404
-  json message: "#{env['sinatra.error'].message} not found."
 end

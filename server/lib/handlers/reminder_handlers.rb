@@ -8,7 +8,7 @@ end
 
 get '/reminders/:id' do
   reminder = Reminder.find_by(id: params[:id])
-  raise(NotFoundError, Reminder.name) unless reminder
+  raise NotFoundError, Reminder.name unless reminder
 
   json reminder: reminder.to_json
 end
@@ -22,23 +22,14 @@ end
 
 put '/reminders/update', allows: [:id, :title, :body, :due_date] do
   reminder = Reminder.find_by(id: params[:id])
-  raise(NotFoundError, Reminder.name) unless reminder
+  raise NotFoundError, Reminder.name unless reminder
 
   respond_for_reminder(reminder.update(params), reminder)
 end
 
 post '/reminders/delete' do
   reminder = Reminder.find_by(id: params[:id])
-  raise(NotFoundError, reminder.class.name) unless reminder && reminder.destroy
+  raise NotFoundError, reminder.class.name unless reminder && reminder.destroy
 
   json reminder: reminder.to_json
-end
-
-def respond_for_reminder(operation, reminder)
-  if operation
-    json reminder: reminder.to_json
-  else
-    status 406
-    json message: reminder.errors.full_messages.join(', ')
-  end
 end

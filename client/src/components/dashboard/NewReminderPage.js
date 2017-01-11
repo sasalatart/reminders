@@ -31,7 +31,7 @@ class NewReminderPage extends React.Component {
 
   render() {
     return(
-      <div className="login-page">
+      <div className="new-reminder-page">
         <h1 className="title is-1">New Reminder</h1>
         <ReminderForm
           {...this.state.reminder}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
@@ -40,7 +41,9 @@ class ReminderTile extends React.Component {
         <article className="tile is-child box notification is-info">
           <button onClick={this.onDelete} className="delete"></button>
 
-          <p className="title">{this.props.title}</p>
+          <p className="title">
+            <Link to={"/edit_reminder/" + this.props.id}>{this.props.title}</Link>
+          </p>
 
           { this.props.dueDate &&
             <p className="subtitle">

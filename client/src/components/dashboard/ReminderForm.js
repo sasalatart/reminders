@@ -10,27 +10,32 @@ class ReminderForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    let moreFields = !!(this.props.body || this.props.dueDate);
-    this.state = {
-      reminder: {
-        title: this.props.title,
-        body: this.props.body,
-        dueDate: this.props.dueDate
-      },
-      moreFields: moreFields,
-      loading: false
-    }
-
+    this.constructState = this.constructState.bind(this);
     this.onToggleMoreFields = this.onToggleMoreFields.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onBodyChange = this.onBodyChange.bind(this);
     this.onAttributeChange = this.onAttributeChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
+    this.state = this.constructState(this.props);
+  }
+
+  constructState(props) {
+    let moreFields = !!(props.body || props.dueDate);
+    return {
+      reminder: {
+        title: props.title,
+        body: props.body,
+        dueDate: props.dueDate
+      },
+      moreFields: moreFields,
+      loading: false
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ loading: false });
+    this.setState(this.constructState(nextProps));
   }
 
   onToggleMoreFields() {
@@ -71,6 +76,11 @@ class ReminderForm extends React.Component {
   }
 
   render() {
+    let reminder = this.state.reminder;
+    if (reminder && reminder.dueDate !== '') {
+      reminder.dueDate = moment(reminder.dueDate);
+    }
+
     return(
       <div className="reminder-form">
         <div className="control">
@@ -84,14 +94,14 @@ class ReminderForm extends React.Component {
         <form>
           <TextInput
             name="title"
-            value={this.state.reminder.title}
+            value={reminder.title}
             placeholder="title"
             onChange={this.onTitleChange} />
 
             { this.state.moreFields &&
               <div className="control">
                 <DatePicker
-                  selected={this.state.reminder.dueDate}
+                  selected={reminder.dueDate}
                   onChange={this.onDateChange}
                   dateFormat="DD/MM/YYYY"
                   className="input" />
@@ -101,7 +111,7 @@ class ReminderForm extends React.Component {
             { this.state.moreFields &&
               <TextAreaInput
                 name="body"
-                value={this.state.reminder.body}
+                value={reminder.body}
                 placehodler="body"
                 onChange={this.onBodyChange} />
             }

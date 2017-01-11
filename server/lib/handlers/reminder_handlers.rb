@@ -17,6 +17,11 @@ put '/reminders/update/:id' do
 end
 
 post '/reminders/delete/:id' do
+  reminder = Reminder.find_by(id: params[:id])
+
+  raise(NotFoundError, reminder.class.name) unless reminder && reminder.destroy
+
+  json reminder: reminder.to_json
 end
 
 def respond_for_reminder(operation, reminder)

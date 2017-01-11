@@ -1,12 +1,45 @@
 import React from 'react';
+import * as axios from 'axios';
+import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
 let moment = require('moment');
+let swal = require('sweetalert');
 
 class ReminderTile extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.onDelete = this.onDelete.bind(this);
+    this.deleteRequest = this.deleteRequest.bind(this);
+  }
+
+  onDelete() {
+    swal({
+      title: 'Are you sure you wish to delete this reminder?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!" }, this.deleteRequest);
+  }
+
+  deleteRequest() {
+    axios.defaults.headers.common['token'] = localStorage.getItem('token');
+    axios.post('/reminders/delete/' + this.props.id).then(response => {
+      this.props.onDelete(response.data.reminder);
+      iziToast.success({ title: 'Reminder deleted.' });
+    }).catch(error => {
+      iziToast.error({
+        title: 'Error deleting reminder',
+        message: error.response.data.message });
+    });
+  }
+
   render() {
     return(
       <div className="tile is-parent is-4">
         <article className="tile is-child box notification is-info">
+          <button onClick={this.onDelete} className="delete"></button>
+
           <p className="title">{this.props.title}</p>
 
           { this.props.dueDate &&

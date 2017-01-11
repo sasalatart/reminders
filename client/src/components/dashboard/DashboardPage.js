@@ -1,5 +1,5 @@
 import React from 'react';
-import ReminderCard from './ReminderTile';
+import ReminderTileRow from './ReminderTileRow';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
@@ -18,6 +18,8 @@ class DashboardPage extends React.Component {
     this.getReminders = this.getReminders.bind(this);
     this.toggleTiles = this.toggleTiles.bind(this);
     this.getRowsToRender = this.getRowsToRender.bind(this);
+    this.filterById = this.filterById.bind(this);
+    this.onDelete = this.onDelete.bind(this);
 
     this.getReminders();
   }
@@ -40,36 +42,35 @@ class DashboardPage extends React.Component {
 
   getRowsToRender() {
     let rows = [];
-
     let reminders = this.state.showingWithDate ? this.state.reminders.withDate : this.state.reminders.withoutDate
-    for (let i = 0; i < reminders.length; i += 3) {
-      let difference = reminders.length - i;
 
-      if (difference >= 3) {
-        rows.push(
-          <div key={i} className="tile is-ancestor">
-            <ReminderCard key={reminders[i].id} {...reminders[i]} />
-            <ReminderCard key={reminders[i + 1].id} {...reminders[i + 1]} />
-            <ReminderCard key={reminders[i + 2].id} {...reminders[i + 2]} />
-          </div>
-        )
-      } else if (difference === 2) {
-        rows.push(
-          <div key={i} className="tile is-ancestor">
-            <ReminderCard key={reminders[i].id} {...reminders[i]} />
-            <ReminderCard key={reminders[i + 1].id} {...reminders[i + 1]} />
-          </div>
-        )
-      } else if (difference === 1) {
-        rows.push(
-          <div key={i} className="tile is-ancestor">
-            <ReminderCard key={reminders[i].id} {...reminders[i]} />
-          </div>
-        )
-      }
+    for (let i = 0; i < reminders.length; i += 3) {
+      rows.push(
+        <ReminderTileRow
+          key={i}
+          reminders={reminders}
+          index={i}
+          onDelete={this.onDelete} />
+      );
     }
 
     return rows;
+  }
+
+  filterById(reminders, deletedReminder) {
+    return reminders.filter(reminder => { return reminder.id !== deletedReminder.id });
+  }
+
+  onDelete(deletedReminder) {
+    let reminders = this.state.reminders;
+
+    if (deletedReminder.dueDate) {
+      reminders.withDate = this.filterById(reminders.withDate, deletedReminder);
+    } else {
+      reminders.withoutDate = this.filterById(reminders.withoutDate, deletedReminder);
+    }
+
+    this.setState({ reminders: reminders });
   }
 
   render() {

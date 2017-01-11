@@ -9,7 +9,7 @@ require_relative './models/models'
 require_relative './handlers/handlers'
 
 set :protection, except: [:json_csrf]
-
+set :show_exceptions, :after_handler
 set :public_folder, "#{__dir__}/../../client/build"
 
 get '/*' do

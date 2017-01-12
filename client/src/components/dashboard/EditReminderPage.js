@@ -9,7 +9,8 @@ class EditReminderPage extends React.Component {
     super(props, context);
 
     this.state = {
-      reminder: { id: '', title: '', body: '', dueDate: '' }
+      reminder: { id: '', title: '', body: '', dueDate: '' },
+      loadingReminder: true
     }
 
     this.getReminder = this.getReminder.bind(this);
@@ -21,7 +22,10 @@ class EditReminderPage extends React.Component {
   getReminder(id) {
     axios.defaults.headers.common['token'] = localStorage.getItem('token');
     axios.get('/reminders/' + id).then(response => {
-      this.setState({ reminder: response.data.reminder });
+      this.setState({
+        reminder: response.data.reminder,
+        loadingReminder: false
+      });
     }).catch(error => {
       browserHistory.push('/');
       iziToast.error({ title: error.response.data.message });
@@ -47,9 +51,9 @@ class EditReminderPage extends React.Component {
   render() {
     return(
       <div className="edit-reminder-page">
-        <h1 className="title is-1">New Reminder</h1>
+        <h1 className="title is-1">Edit Reminder</h1>
         <ReminderForm
-          {...this.state.reminder}
+          {...this.state}
           onSubmit={this.onSubmit} />
       </div>
     );

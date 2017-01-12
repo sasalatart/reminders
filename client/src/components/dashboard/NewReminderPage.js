@@ -34,7 +34,7 @@ class NewReminderPage extends React.Component {
       <div className="new-reminder-page">
         <h1 className="title is-1">New Reminder</h1>
         <ReminderForm
-          {...this.state.reminder}
+          {...this.state}
           onSubmit={this.onSubmit} />
       </div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReminderTileRow from './ReminderTileRow';
+import RingLoader from '../common/RingLoader';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
@@ -12,7 +13,8 @@ class DashboardPage extends React.Component {
         withDate: [],
         withoutDate: []
       },
-      showingWithDate: true
+      showingWithDate: true,
+      loadingReminders: true
     }
 
     this.getReminders = this.getReminders.bind(this);
@@ -29,9 +31,11 @@ class DashboardPage extends React.Component {
     axios.get('/reminders').then(response => {
       this.setState({
         reminders: response.data.reminders,
+        loadingReminders: false,
         showingWithDate: true
       });
     }).catch(error => {
+      this.setState({ loadingReminders: false });
       iziToast.error({ title: 'Error retrieving reminders.' });
     });
   }
@@ -99,8 +103,10 @@ class DashboardPage extends React.Component {
 
         {
           rowsToRender.length > 0 ?
-          rowsToRender :
-          <h1 className="title is-3 has-text-centered">There are no reminders in this section.</h1>
+            rowsToRender :
+            this.state.loadingReminders ?
+              <RingLoader color="#26A65B" size="256px" /> :
+              <h1 className="title is-3 has-text-centered">There are no reminders in this section.</h1>
         }
       </div>
     );

@@ -3,6 +3,7 @@ import TextInput from '../common/TextInput';
 import TextAreaInput from '../common/TextAreaInput';
 import SubmitInput from '../common/SubmitInput';
 import DatePickerInput from '../common/DatePickerInput';
+import RingLoader from '../common/RingLoader';
 
 let moment = require('moment');
 
@@ -22,21 +23,24 @@ class ReminderForm extends React.Component {
   }
 
   constructState(props) {
-    let moreFields = !!(props.body || props.dueDate);
+    const reminder = props.reminder;
+    const moreFields = !!(reminder.body || reminder.dueDate);
+
     return {
       reminder: {
-        title: props.title,
-        body: props.body,
-        dueDate: props.dueDate
+        title: reminder.title,
+        body: reminder.body,
+        dueDate: reminder.dueDate
       },
       errors: {
         title: false,
         body: false,
         dueDate: false
       },
+      loadingReminder: props.loadingReminder || false,
       moreFields: moreFields,
       disabled: true,
-      loading: false
+      loading: props.loading || false
     };
   }
 
@@ -101,43 +105,49 @@ class ReminderForm extends React.Component {
 
     return(
       <div className="reminder-form">
-        <div className="control">
-          <button
-            className="button is-info"
-            onClick={this.onToggleMoreFields}>
-            { this.state.moreFields ? 'Remove due date and body' : 'Add due date and body' }
-          </button>
-        </div>
+        {
+          this.state.loadingReminder ?
+            <RingLoader color="#26A65B" size="256px" /> :
+            <div>
+              <div className="control">
+                <button
+                  className="button is-info"
+                  onClick={this.onToggleMoreFields}>
+                  { this.state.moreFields ? 'Remove due date and body' : 'Add due date and body' }
+                </button>
+              </div>
 
-        <form>
-          <TextInput
-            name="title"
-            value={reminder.title}
-            placeholder="title"
-            onChange={this.onTitleChange}
-            errors={this.state.errors.title} />
+              <form>
+                <TextInput
+                  name="title"
+                  value={reminder.title}
+                  placeholder="title"
+                  onChange={this.onTitleChange}
+                  errors={this.state.errors.title} />
 
-            { this.state.moreFields &&
-              <DatePickerInput
-                selected={reminder.dueDate}
-                onChange={date => { this.onDueDateChange(date) }}
-                errors={this.state.errors.dueDate} />
-            }
+                  { this.state.moreFields &&
+                    <DatePickerInput
+                      selected={reminder.dueDate}
+                      onChange={date => { this.onDueDateChange(date) }}
+                      errors={this.state.errors.dueDate} />
+                  }
 
-            { this.state.moreFields &&
-              <TextAreaInput
-                name="body"
-                value={reminder.body}
-                placehodler="body"
-                onChange={event => { this.onAttributeChange('body', event.target.value) }}
-                errors={this.state.errors.body} />
-            }
+                  { this.state.moreFields &&
+                    <TextAreaInput
+                      name="body"
+                      value={reminder.body}
+                      placehodler="body"
+                      onChange={event => { this.onAttributeChange('body', event.target.value) }}
+                      errors={this.state.errors.body} />
+                  }
 
-            <SubmitInput
-              disabled={this.state.disabled}
-              loading={this.state.loading}
-              onSubmit={this.onSubmit} />
-        </form>
+                  <SubmitInput
+                    disabled={this.state.disabled}
+                    loading={this.state.loading}
+                    onSubmit={this.onSubmit} />
+              </form>
+            </div>
+        }
       </div>
     );
   }

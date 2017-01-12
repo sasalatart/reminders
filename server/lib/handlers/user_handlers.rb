@@ -1,7 +1,5 @@
-post '/signup' do
-  user = User.new(email: params[:email],
-                  password: params[:password],
-                  password_confirmation: params[:password_confirmation])
+post '/signup', allows: [:email, :password, :password_confirmation] do
+  user = User.new(params)
 
   operation = user.save && user.authenticate_and_generate_token(params[:password])
   respond_for_user(operation, user)

@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import HeaderLoggedInNav from './HeaderLoggedInNav';
+import HeaderLoggedOutNav from './HeaderLoggedOutNav';
 import * as axios from 'axios';
 
 class Header extends React.Component {
@@ -23,20 +25,11 @@ class Header extends React.Component {
           <div className="nav-left">
             <Link to="/" className="nav-item">Reminders</Link>
           </div>
-            { this.props.loggedIn ? (
-              <div className="nav-right nav-menu">
-                <Link to="/" className="nav-item">Dashboard</Link>
-                <a onClick={this.onLogout} className="nav-item">Logout</a>
-              </div>
-            ) : (
-              <div className="nav-right nav-menu">
-                { this.props.route === '/login' ? (
-                  <Link to="/signup" className="nav-item">Signup</Link>
-                ) : (
-                  <Link to="/login" className="nav-item">Login</Link>
-                ) }
-              </div>
-            ) }
+            {
+              this.props.loggedIn ?
+                <HeaderLoggedInNav route={this.props.route} onLogout={this.onLogout} /> :
+                <HeaderLoggedOutNav route={this.props.route} />
+            }
         </div>
       </header>
     );

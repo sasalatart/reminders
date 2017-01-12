@@ -74,6 +74,8 @@ class DashboardPage extends React.Component {
   }
 
   render() {
+    const rowsToRender = this.getRowsToRender();
+
     return(
       <div className="dashboard-page">
         <h1 className="title is-1">Dashboard</h1>
@@ -95,7 +97,11 @@ class DashboardPage extends React.Component {
           </ul>
         </div>
 
-        { this.getRowsToRender() }
+        {
+          rowsToRender.length > 0 ?
+          rowsToRender :
+          <h1 className="title is-3 has-text-centered">There are no reminders in this section.</h1>
+        }
       </div>
     );
   }

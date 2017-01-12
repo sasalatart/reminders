@@ -2,8 +2,8 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 import TextAreaInput from '../common/TextAreaInput';
 import SubmitInput from '../common/SubmitInput';
+import DatePickerInput from '../common/DatePickerInput';
 
-let DatePicker = require('react-datepicker');
 let moment = require('moment');
 
 class ReminderForm extends React.Component {
@@ -13,8 +13,7 @@ class ReminderForm extends React.Component {
     this.constructState = this.constructState.bind(this);
     this.onToggleMoreFields = this.onToggleMoreFields.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
-    this.onBodyChange = this.onBodyChange.bind(this);
+    this.onDueDateChange = this.onDueDateChange.bind(this);
     this.onAttributeChange = this.onAttributeChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -28,6 +27,11 @@ class ReminderForm extends React.Component {
         title: props.title,
         body: props.body,
         dueDate: props.dueDate
+      },
+      errors: {
+        title: false,
+        body: false,
+        dueDate: false
       },
       moreFields: moreFields,
       loading: false
@@ -52,16 +56,20 @@ class ReminderForm extends React.Component {
   }
 
   onTitleChange(event) {
-    // TODO: Manage errors
-    this.onAttributeChange('title', event.target.value);
+    const title = event.target.value;
+    this.onAttributeChange('title', title);
+
+    let errors = this.state.errors;
+    errors.title = (title ? false : 'Title can not be blank.');
+    this.setState({errors: errors});
   }
 
-  onDateChange(date) {
+  onDueDateChange(date) {
     this.onAttributeChange('dueDate', date);
-  }
 
-  onBodyChange(event) {
-    this.onAttributeChange('body', event.target.value);
+    let errors = this.state.errors;
+    errors.dueDate = (moment().diff(moment(date)) < 0 ? false : 'Date can not be in the past.');
+    this.setState({errors: errors});
   }
 
   onAttributeChange(attribute, value) {
@@ -96,16 +104,14 @@ class ReminderForm extends React.Component {
             name="title"
             value={reminder.title}
             placeholder="title"
-            onChange={this.onTitleChange} />
+            onChange={this.onTitleChange}
+            errors={this.state.errors.title} />
 
             { this.state.moreFields &&
-              <div className="control">
-                <DatePicker
-                  selected={reminder.dueDate}
-                  onChange={this.onDateChange}
-                  dateFormat="DD/MM/YYYY"
-                  className="input" />
-              </div>
+              <DatePickerInput
+                selected={reminder.dueDate}
+                onChange={date => { this.onDueDateChange(date) }}
+                errors={this.state.errors.dueDate} />
             }
 
             { this.state.moreFields &&
@@ -113,7 +119,8 @@ class ReminderForm extends React.Component {
                 name="body"
                 value={reminder.body}
                 placehodler="body"
-                onChange={this.onBodyChange} />
+                onChange={event => { this.onAttributeChange('body', event.target.value) }}
+                errors={this.state.errors.body} />
             }
 
             <SubmitInput

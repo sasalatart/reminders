@@ -14,11 +14,44 @@ class SignupForm extends React.Component {
         password: '',
         passwordConfirmation: ''
       },
+      errors: {
+        email: false,
+        password: false,
+        passwordConfirmation: false
+      },
       loading: false
     }
 
+    this.EMAILREGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/;
+
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordConfirmationChange = this.onPasswordConfirmationChange.bind(this);
+    this.onAttributeChange = this.onAttributeChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+  }
+
+  onEmailChange(event) {
+    const value = event.target.value;
+    this.onAttributeChange('email', event.target.value);
+
+    let errors = this.state.errors;
+    errors.email = this.EMAILREGEX.test(value) ? false : 'Email must be in correct format.';
+    this.setState({ errors: errors });
+  }
+
+  onPasswordConfirmationChange(event) {
+    const value = event.target.value;
+    this.onAttributeChange('passwordConfirmation', value);
+
+    let errors = this.state.errors;
+    errors.passwordConfirmation = (value === this.state.form.password ? false : 'Password and confirmation must match.');
+    this.setState({ errors: errors });
+  }
+
+  onAttributeChange(attribute, value) {
+    let form = this.state.form;
+    form[attribute] = value;
+    this.setState({ form: form });
   }
 
   onSubmit() {
@@ -35,35 +68,31 @@ class SignupForm extends React.Component {
     });
   }
 
-  onChange(event) {
-    const field = event.target.name;
-    let form = this.state.form;
-    form[field] = event.target.value;
-    this.setState({ form: form });
-  }
-
   render() {
     return(
       <form>
         <TextInput
           name="email"
           placeholder="e-mail"
-          value={this.state.email}
-          onChange={this.onChange} />
+          value={this.state.form.email}
+          errors={this.state.errors.email}
+          onChange={this.onEmailChange} />
 
         <TextInput
           name="password"
           placeholder="password"
-          value={this.state.password}
+          value={this.state.form.password}
           isPassword={true}
-          onChange={this.onChange} />
+          errors={this.state.errors.password}
+          onChange={event => {this.onAttributeChange('password', event.target.value)}} />
 
         <TextInput
           name="passwordConfirmation"
           placeholder="password confirmation"
-          value={this.state.passwordConfirmation}
+          value={this.state.form.passwordConfirmation}
           isPassword={true}
-          onChange={this.onChange} />
+          errors={this.state.errors.passwordConfirmation}
+          onChange={this.onPasswordConfirmationChange} />
 
         <SubmitInput
           loading={this.state.loading}

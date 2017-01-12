@@ -13,11 +13,44 @@ class LoginForm extends React.Component {
         email: '',
         password: ''
       },
+      errors: {
+        email: false,
+        password: false
+      },
+      disabled: true,
       loading: false
     }
 
+    this.EMAILREGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i;
+
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onAttributeChange = this.onAttributeChange.bind(this);
+    this.checkDisabled = this.checkDisabled.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+  }
+
+  onEmailChange(event) {
+    const value = event.target.value;
+
+    let errors = this.state.errors;
+    errors.email = this.EMAILREGEX.test(value) ? false : 'Email must be in correct format.';
+    this.setState({ errors: errors });
+
+    this.onAttributeChange('email', event.target.value);
+  }
+
+  onAttributeChange(attribute, value) {
+    let form = this.state.form;
+    form[attribute] = value;
+    this.setState({ form: form, disabled: this.checkDisabled() });
+  }
+
+  checkDisabled() {
+    const form = this.state.form;
+    let errors = this.state.errors;
+    errors = (errors.email || !form.email) || (errors.password || !form.password);
+
+    return this.state.loading || errors;
   }
 
   onSubmit() {
@@ -37,13 +70,6 @@ class LoginForm extends React.Component {
     });
   }
 
-  onChange(event) {
-    const field = event.target.name;
-    let form = this.state.form;
-    form[field] = event.target.value;
-    this.setState({ form: form });
-  }
-
   render() {
     return(
       <form>
@@ -52,7 +78,8 @@ class LoginForm extends React.Component {
           placeholder="e-mail"
           value={this.state.form.email}
           icon="envelope"
-          onChange={this.onChange} />
+          errors={this.state.errors.email}
+          onChange={this.onEmailChange} />
 
         <TextInput
           name="password"
@@ -60,9 +87,10 @@ class LoginForm extends React.Component {
           value={this.state.form.password}
           isPassword={true}
           icon="lock"
-          onChange={this.onChange} />
+          onChange={event => { this.onAttributeChange('password', event.target.value) }} />
 
         <SubmitInput
+          disabled={this.state.disabled}
           loading={this.state.loading}
           onSubmit={this.onSubmit} />
       </form>

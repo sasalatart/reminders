@@ -15,6 +15,7 @@ class ReminderForm extends React.Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onDueDateChange = this.onDueDateChange.bind(this);
     this.onAttributeChange = this.onAttributeChange.bind(this);
+    this.checkDisabled = this.checkDisabled.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = this.constructState(this.props);
@@ -34,6 +35,7 @@ class ReminderForm extends React.Component {
         dueDate: false
       },
       moreFields: moreFields,
+      disabled: true,
       loading: false
     };
   }
@@ -57,25 +59,33 @@ class ReminderForm extends React.Component {
 
   onTitleChange(event) {
     const title = event.target.value;
-    this.onAttributeChange('title', title);
 
     let errors = this.state.errors;
     errors.title = (title ? false : 'Title can not be blank.');
     this.setState({errors: errors});
+
+    this.onAttributeChange('title', title);
   }
 
   onDueDateChange(date) {
-    this.onAttributeChange('dueDate', date);
-
     let errors = this.state.errors;
     errors.dueDate = (moment().diff(moment(date)) < 0 ? false : 'Date can not be in the past.');
     this.setState({errors: errors});
+
+    this.onAttributeChange('dueDate', date);
   }
 
   onAttributeChange(attribute, value) {
     let reminder = this.state.reminder;
     reminder[attribute] = value;
-    this.setState({ reminder: reminder });
+    this.setState({ reminder: reminder, disabled: this.checkDisabled() });
+  }
+
+  checkDisabled() {
+    let errors = this.state.errors;
+    errors = errors.title || !this.state.reminder.title || errors.dueDate || errors.body;
+
+    return this.state.loading || errors;
   }
 
   onSubmit() {
@@ -124,6 +134,7 @@ class ReminderForm extends React.Component {
             }
 
             <SubmitInput
+              disabled={this.state.disabled}
               loading={this.state.loading}
               onSubmit={this.onSubmit} />
         </form>

@@ -19,39 +19,54 @@ class SignupForm extends React.Component {
         password: false,
         passwordConfirmation: false
       },
+      disabled: true,
       loading: false
     }
 
-    this.EMAILREGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/;
+    this.EMAILREGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i;
 
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordConfirmationChange = this.onPasswordConfirmationChange.bind(this);
     this.onAttributeChange = this.onAttributeChange.bind(this);
+    this.checkDisabled = this.checkDisabled.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onEmailChange(event) {
     const value = event.target.value;
-    this.onAttributeChange('email', event.target.value);
 
     let errors = this.state.errors;
     errors.email = this.EMAILREGEX.test(value) ? false : 'Email must be in correct format.';
     this.setState({ errors: errors });
+
+    this.onAttributeChange('email', event.target.value);
   }
 
   onPasswordConfirmationChange(event) {
     const value = event.target.value;
-    this.onAttributeChange('passwordConfirmation', value);
 
     let errors = this.state.errors;
     errors.passwordConfirmation = (value === this.state.form.password ? false : 'Password and confirmation must match.');
     this.setState({ errors: errors });
+
+    this.onAttributeChange('passwordConfirmation', value);
   }
 
   onAttributeChange(attribute, value) {
     let form = this.state.form;
     form[attribute] = value;
-    this.setState({ form: form });
+    this.setState({ form: form, disabled: this.checkDisabled() });
+  }
+
+  checkDisabled() {
+    const form = this.state.form;
+    let errors = this.state.errors;
+
+    errors = (errors.email || !form.email) ||
+             (errors.password || !form.password) ||
+             (errors.passwordConfirmation || !form.passwordConfirmation);
+
+    return this.state.loading || errors;
   }
 
   onSubmit() {
@@ -98,6 +113,7 @@ class SignupForm extends React.Component {
           onChange={this.onPasswordConfirmationChange} />
 
         <SubmitInput
+          disabled={this.state.disabled}
           loading={this.state.loading}
           onSubmit={this.onSubmit} />
       </form>

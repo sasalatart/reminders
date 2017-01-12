@@ -4,7 +4,7 @@ const Footer = () => {
   return(
     <footer>
       <nav className="tabs is-boxed is-fullwidth">
-        <div className="container">Footer</div>
+        <div className="container">Sebastián Salata R-T - 2017</div>
       </nav>
     </footer>
   )

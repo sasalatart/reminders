@@ -13,10 +13,12 @@ class SignupPage extends React.Component {
   }
 
   render() {
-    return (
+    return(
       <div className="signup-page">
-        <h1 className="title is-1">Signup</h1>
-        <SignupForm onSignup={this.onSignup} />
+        <h1 className="title is-1 has-text-centered">Signup</h1>
+        <div className="column is-4 is-offset-4">
+          <SignupForm onSignup={this.onSignup} />
+        </div>
       </div>
     )
   }

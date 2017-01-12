@@ -32,8 +32,8 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div className="is-full-height is-flex is-flex-column">
+    return(
+      <div className="is-height-100vh is-background is-flex is-flex-column">
         <Header route={this.props.location.pathname} loggedIn={this.state.loggedIn} onLogout={this.onLogout} />
         <div className="is-body">
           <div className="container">

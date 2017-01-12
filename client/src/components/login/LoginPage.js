@@ -15,8 +15,10 @@ class LoginPage extends React.Component {
   render() {
     return(
       <div className="login-page">
-        <h1 className="title is-1">Login</h1>
-        <LoginForm onLogin={this.onLogin} />
+        <h1 className="title is-1 has-text-centered">Login</h1>
+        <div className="column is-4 is-offset-4">
+          <LoginForm onLogin={this.onLogin} />
+        </div>
       </div>
     )
   }

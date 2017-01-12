@@ -1,8 +1,19 @@
 import React, {PropTypes} from 'react'
 
-const TextInput = ({name, value, placeholder, isPassword=false, errors=false, onChange}) => {
+const TextInput = ({name, value, placeholder, isPassword=false, icon=false, errors=false, onChange}) => {
+  let wrapClassName = 'control';
+  wrapClassName += icon ? ' has-icon' : '';
+  wrapClassName += errors ? ' has-icon has-icon-right' : '';
+
   return(
-    <div className={errors ? 'control has-icon has-icon-right' : 'control'}>
+    <div className={wrapClassName}>
+      {
+        icon && !errors &&
+        <span className="icon is-small">
+          <i className={"fa fa-" + icon}></i>
+        </span>
+      }
+
       <input
         className={errors ? 'input is-danger' : 'input'}
         type={isPassword ? 'password' : 'text'}

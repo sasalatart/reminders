@@ -75,6 +75,7 @@ class SignupForm extends React.Component {
           name="email"
           placeholder="e-mail"
           value={this.state.form.email}
+          icon="envelope"
           errors={this.state.errors.email}
           onChange={this.onEmailChange} />
 
@@ -83,6 +84,7 @@ class SignupForm extends React.Component {
           placeholder="password"
           value={this.state.form.password}
           isPassword={true}
+          icon="lock"
           errors={this.state.errors.password}
           onChange={event => {this.onAttributeChange('password', event.target.value)}} />
 
@@ -91,6 +93,7 @@ class SignupForm extends React.Component {
           placeholder="password confirmation"
           value={this.state.form.passwordConfirmation}
           isPassword={true}
+          icon="lock"
           errors={this.state.errors.passwordConfirmation}
           onChange={this.onPasswordConfirmationChange} />
 

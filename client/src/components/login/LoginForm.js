@@ -51,14 +51,16 @@ class LoginForm extends React.Component {
           name="email"
           placeholder="e-mail"
           value={this.state.form.email}
+          icon="envelope"
           onChange={this.onChange} />
 
         <TextInput
           name="password"
           placeholder="password"
           value={this.state.form.password}
-          onChange={this.onChange}
-          isPassword={true} />
+          isPassword={true}
+          icon="lock"
+          onChange={this.onChange} />
 
         <SubmitInput
           loading={this.state.loading}

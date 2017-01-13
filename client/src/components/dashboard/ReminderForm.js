@@ -4,6 +4,7 @@ import TextAreaInput from '../common/TextAreaInput';
 import SubmitInput from '../common/SubmitInput';
 import DatePickerInput from '../common/DatePickerInput';
 import RingLoader from '../common/RingLoader';
+import { errorChecking } from '../../utilities/checking';
 
 let moment = require('moment');
 
@@ -82,13 +83,14 @@ class ReminderForm extends React.Component {
   onAttributeChange(attribute, value) {
     let reminder = this.state.reminder;
     reminder[attribute] = value;
-    this.setState({ reminder: reminder, disabled: this.checkDisabled() });
+    this.setState({
+      reminder: reminder,
+      disabled: this.checkDisabled()
+    });
   }
 
   checkDisabled() {
-    let errors = this.state.errors;
-    errors = errors.title || !this.state.reminder.title || errors.dueDate || errors.body;
-
+    const errors = errorChecking(this.state.errors) || !this.state.reminder.title;
     return this.state.loading || errors;
   }
 

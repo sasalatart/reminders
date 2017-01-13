@@ -1,6 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 import SubmitInput from '../common/SubmitInput';
+import { checkDisabled } from '../../utilities/checking';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
@@ -25,7 +26,6 @@ class LoginForm extends React.Component {
 
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onAttributeChange = this.onAttributeChange.bind(this);
-    this.checkDisabled = this.checkDisabled.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -42,15 +42,10 @@ class LoginForm extends React.Component {
   onAttributeChange(attribute, value) {
     let form = this.state.form;
     form[attribute] = value;
-    this.setState({ form: form, disabled: this.checkDisabled() });
-  }
-
-  checkDisabled() {
-    const form = this.state.form;
-    let errors = this.state.errors;
-    errors = (errors.email || !form.email) || (errors.password || !form.password);
-
-    return this.state.loading || errors;
+    this.setState({
+      form: form,
+      disabled: checkDisabled(this.state.errors, form, this.state.loading)
+    });
   }
 
   onSubmit() {
@@ -58,7 +53,7 @@ class LoginForm extends React.Component {
 
     axios.post('/login', {
       email: this.state.form.email,
-      password: this.state.form.password,
+      password: this.state.form.password
     }).then(response => {
       this.props.onLogin(response.data.jwt);
     }).catch(error => {

@@ -8,7 +8,7 @@ end
 
 get '/reminders/:id' do
   reminder = Reminder.find_by(id: params[:id])
-  raise NotFoundError, Reminder.name unless reminder
+  handle_error(:not_found, 'Reminder not found.') unless reminder
 
   json reminder: reminder.to_json
 end
@@ -17,19 +17,27 @@ post '/reminders/create', allows: [:title, :body, :due_date] do
   reminder = Reminder.new(params)
   reminder.owner = @current_user
 
-  respond_for_reminder(reminder.save, reminder)
+  if reminder.save
+    json reminder: reminder.to_json
+  else
+    handle_error :not_acceptable, errors_for(reminder)
+  end
 end
 
 put '/reminders/update', allows: [:id, :title, :body, :due_date] do
   reminder = Reminder.find_by(id: params[:id])
-  raise NotFoundError, Reminder.name unless reminder
+  handle_error(:not_found, 'Reminder not found.') unless reminder
 
-  respond_for_reminder(reminder.update(params), reminder)
+  if reminder.update(params)
+    json reminder: reminder.to_json
+  else
+    handle_error :not_acceptable, errors_for(reminder)
+  end
 end
 
 post '/reminders/delete' do
   reminder = Reminder.find_by(id: params[:id])
-  raise NotFoundError, reminder.class.name unless reminder && reminder.destroy
+  handle_error(:not_found, 'Reminder not found.') unless reminder && reminder.destroy
 
   json reminder: reminder.to_json
 end

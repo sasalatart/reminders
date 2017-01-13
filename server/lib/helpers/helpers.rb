@@ -3,13 +3,17 @@ helpers do
     object.errors.full_messages.join(', ')
   end
 
-  def respond_for_reminder(operation_success, reminder)
-    raise NotAcceptableError, errors_for(reminder) unless operation_success
-    json reminder: reminder.to_json
+  def status_code_for(status_code)
+    case status_code
+    when :not_authenticated then return 403
+    when :not_found then return 404
+    when :not_acceptable then return 406
+    end
+
+    500
   end
 
-  def respond_for_user(operation_success, user, error_message = errors_for(user))
-    raise NotAcceptableError, error_message unless operation_success
-    json user: user.to_json, jwt: user.generate_jwt
+  def handle_error(status_code, message)
+    halt status_code_for(status_code), json(message: message)
   end
 end

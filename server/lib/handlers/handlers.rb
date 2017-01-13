@@ -1,9 +1,11 @@
 require_relative './user_handlers'
 require_relative './reminder_handlers'
 
-before /^(?!\/(signup|login))/ do
+before %r{^(?!\/(signup|login))} do
   @current_user = User.find_by_jwt(request.env['HTTP_TOKEN'])
-  raise NotAuthenticatedError unless @current_user
+
+  return if @current_user || request.path_info == '/'
+  handle_error(:not_authenticated, 'Not authenticated.')
 end
 
 after do

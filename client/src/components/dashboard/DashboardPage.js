@@ -1,5 +1,6 @@
 import React from 'react';
 import ReminderTileRow from './ReminderTileRow';
+import ToggleTilesButton from './ToggleTilesButton';
 import RingLoader from '../common/RingLoader';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
@@ -86,18 +87,16 @@ class DashboardPage extends React.Component {
 
         <div className="tabs is-fullwidth is-boxed is-large">
           <ul>
-            <li className={this.state.showingWithDate ? 'is-active' : ''}>
-              <a onClick={() => { this.toggleTiles(true) }}>
-                <span className="icon is-large"><i className="fa fa-calendar"></i></span>
-                <span>With Date</span>
-              </a>
-            </li>
-            <li className={this.state.showingWithDate ? '' : 'is-active'}>
-              <a onClick={() => { this.toggleTiles(false) }}>
-                <span className="icon is-large"><i className="fa fa-lightbulb-o"></i></span>
-                <span>Without Date</span>
-              </a>
-            </li>
+            <ToggleTilesButton
+              title="With Date"
+              isActiveClass={this.state.showingWithDate ? 'is-active' : ''}
+              toggleTiles={() => { this.toggleTiles(true) }}
+              icon="calendar" />
+            <ToggleTilesButton
+              title="Without Date"
+              isActiveClass={this.state.showingWithDate ? '' : 'is-active'}
+              toggleTiles={() => { this.toggleTiles(false) }}
+              icon="lightbulb-o" />
           </ul>
         </div>
 

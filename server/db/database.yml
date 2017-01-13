@@ -1,0 +1,19 @@
+development:
+  adapter : postgresql
+  pool    : 5
+  timeout : 5000
+
+  host    : localhost
+  port    : 5432
+  database: REMINDERS_development
+  username: postgres
+
+production:
+  adapter : postgresql
+  pool    : 5
+  timeout : 5000
+
+  host    : postgres_db
+  port    : 5432
+  database: REMINDERS_production
+  username: postgres

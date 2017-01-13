@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 import SubmitInput from '../common/SubmitInput';
-import { checkDisabled } from '../../utilities/checking';
+import { checkEmail, checkDisabled } from '../../utilities/checking';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
@@ -22,21 +22,15 @@ class LoginForm extends React.Component {
       loading: false
     }
 
-    this.EMAILREGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i;
-
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onAttributeChange = this.onAttributeChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onEmailChange(event) {
-    const value = event.target.value;
-
-    let errors = this.state.errors;
-    errors.email = this.EMAILREGEX.test(value) ? false : 'Email must be in correct format.';
-    this.setState({ errors: errors });
-
-    this.onAttributeChange('email', event.target.value);
+    let value = event.target.value;
+    this.setState(checkEmail(value, this.state.errors));
+    this.onAttributeChange('email', value);
   }
 
   onAttributeChange(attribute, value) {

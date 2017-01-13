@@ -1,3 +1,10 @@
+const EMAILREGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i;
+
+export const checkEmail = (value, errorsObject) => {
+  errorsObject.email = EMAILREGEX.test(value) ? false : 'Email must be in correct format.';
+  return { errors: errorsObject };
+}
+
 export const errorChecking = errors => {
   return !Object.values(errors).every(value => { return !value });
 }

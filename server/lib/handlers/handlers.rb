@@ -3,7 +3,7 @@ require_relative './reminder_handlers'
 
 before /^(?!\/(signup|login))/ do
   @current_user = User.find_by_jwt(request.env['HTTP_TOKEN'])
-  halt 403, 'Not authenticated' unless @current_user
+  raise NotAuthenticatedError unless @current_user
 end
 
 after do

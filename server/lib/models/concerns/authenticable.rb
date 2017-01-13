@@ -9,7 +9,7 @@ module Authenticable
       return false unless jwt
 
       decoded_token = JWT.decode(jwt, ENV['HMAC_SECRET'], true, algorithm: 'HS256')
-      payload, header = decoded_token
+      payload, _header = decoded_token
       User.find_by(token: payload['token'])
     end
   end

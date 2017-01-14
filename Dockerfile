@@ -18,4 +18,6 @@ WORKDIR /usr/src/app/server
 
 RUN bundle install --without development test
 
+EXPOSE 9292
+
 CMD ["rackup", "config.ru"]

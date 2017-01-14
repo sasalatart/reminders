@@ -36,7 +36,10 @@ const TextInput = ({name, value, placeholder, isPassword=false, icon=false, erro
 
 TextInput.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  isPassword: PropTypes.bool,
+  onChange: PropTypes.func.isRequired
 }
 
 export default TextInput;

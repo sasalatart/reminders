@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const ToggleTilesButton = ({ title, isActiveClass, toggleTiles, icon}) => {
   return(
@@ -11,6 +11,13 @@ const ToggleTilesButton = ({ title, isActiveClass, toggleTiles, icon}) => {
       </a>
     </li>
   )
+}
+
+ToggleTilesButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  isActiveClass: PropTypes.string.isRequired,
+  toggleTiles: PropTypes.func.isRequired,
+  icon: PropTypes.string
 }
 
 export default ToggleTilesButton;

@@ -7,7 +7,7 @@ const DatePickerInput = ({ selected, errors=false, onChange }) => {
     <div className={errors ? 'control has-icon has-icon-right' : 'control'}>
       <DatePicker
         selected={selected}
-        onChange={(date) => { onChange(date) }}
+        onChange={date => { onChange(date) }}
         dateFormat="DD/MM/YYYY"
         className={errors ? 'input is-danger' : 'input'} />
 

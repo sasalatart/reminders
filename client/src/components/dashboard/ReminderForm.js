@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import TextInput from '../common/TextInput';
 import TextAreaInput from '../common/TextAreaInput';
 import SubmitInput from '../common/SubmitInput';
@@ -153,6 +153,10 @@ class ReminderForm extends React.Component {
       </div>
     );
   }
+}
+
+ReminderForm.propTypes = {
+  reminder: PropTypes.object.isRequired
 }
 
 export default ReminderForm;

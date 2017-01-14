@@ -38,7 +38,8 @@ class Header extends React.Component {
 
 Header.propTypes = {
   route: PropTypes.string.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  onLogout: PropTypes.func.isRequired
 }
 
 export default Header;

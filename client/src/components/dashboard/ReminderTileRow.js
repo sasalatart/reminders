@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReminderTile from './ReminderTile';
 
 const ReminderTileRow = ({ reminders, index, onDelete }) => {
@@ -13,6 +13,12 @@ const ReminderTileRow = ({ reminders, index, onDelete }) => {
   return(
     <div key={index} className="tile is-ancestor">{ rows }</div>
   );
+}
+
+ReminderTileRow.propTypes = {
+  reminders: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default ReminderTileRow;

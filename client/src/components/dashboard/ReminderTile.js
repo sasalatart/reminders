@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
@@ -60,6 +60,13 @@ class ReminderTile extends React.Component {
       </div>
     )
   }
+}
+
+ReminderTile.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  dueDate: PropTypes.string,
+  body: PropTypes.string
 }
 
 export default ReminderTile;

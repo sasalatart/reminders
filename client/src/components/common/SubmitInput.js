@@ -15,7 +15,9 @@ const SubmitInput = ({ disabled=false, loading, onSubmit }) => {
 };
 
 SubmitInput.propTypes = {
-  loading: PropTypes.bool.isRequired
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
 
 export default SubmitInput;

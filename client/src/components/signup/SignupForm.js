@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import TextInput from '../common/TextInput';
 import SubmitInput from '../common/SubmitInput';
 import { checkEmail, checkDisabled } from '../../utilities/checking';
@@ -105,6 +105,10 @@ class SignupForm extends React.Component {
       </form>
     );
   }
+}
+
+SignupForm.propTypes = {
+  onSignup: PropTypes.func.isRequired
 }
 
 export default SignupForm;

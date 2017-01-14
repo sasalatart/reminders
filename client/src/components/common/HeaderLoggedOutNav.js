@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 const HeaderLoggedOutNav = ({ route }) => {
@@ -11,6 +11,10 @@ const HeaderLoggedOutNav = ({ route }) => {
       }
     </div>
   );
+}
+
+HeaderLoggedOutNav.propTypes = {
+  route: PropTypes.string.isRequired
 }
 
 export default HeaderLoggedOutNav;

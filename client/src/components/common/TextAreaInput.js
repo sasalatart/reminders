@@ -24,7 +24,9 @@ const TextAreaInput = ({name, value, placeholder, errors=false, onChange}) => {
 
 TextAreaInput.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired
 }
 
 export default TextAreaInput;

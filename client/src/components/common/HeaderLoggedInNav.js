@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 const HeaderLoggedInNav = ({ route, onLogout }) => {
@@ -14,6 +14,11 @@ const HeaderLoggedInNav = ({ route, onLogout }) => {
       <a onClick={onLogout} className="nav-item">Logout</a>
     </div>
   );
+}
+
+HeaderLoggedInNav.propTypes = {
+  route: PropTypes.string.isRequired,
+  onLogout: PropTypes.func.isRequired
 }
 
 export default HeaderLoggedInNav;

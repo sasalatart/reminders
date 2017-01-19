@@ -51,10 +51,12 @@ class EditReminderPage extends React.Component {
   render() {
     return(
       <div className="edit-reminder-page">
-        <h1 className="title is-1">Edit Reminder</h1>
-        <ReminderForm
-          {...this.state}
-          onSubmit={this.onSubmit} />
+        <div className="container">
+          <h1 className="title is-1">Edit Reminder</h1>
+          <ReminderForm
+            {...this.state}
+            onSubmit={this.onSubmit} />
+        </div>
       </div>
     );
   }

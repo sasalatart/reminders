@@ -83,30 +83,32 @@ class DashboardPage extends React.Component {
 
     return(
       <div className="dashboard-page">
-        <h1 className="title is-1">Dashboard</h1>
+        <div className="container">
+          <h1 className="title is-1">Dashboard</h1>
 
-        <div className="tabs is-fullwidth is-boxed is-large">
-          <ul>
-            <ToggleTilesButton
-              title="With Date"
-              isActiveClass={this.state.showingWithDate ? 'is-active' : ''}
-              toggleTiles={() => { this.toggleTiles(true) }}
-              icon="calendar" />
-            <ToggleTilesButton
-              title="Without Date"
-              isActiveClass={this.state.showingWithDate ? '' : 'is-active'}
-              toggleTiles={() => { this.toggleTiles(false) }}
-              icon="lightbulb-o" />
-          </ul>
+          <div className="tabs is-fullwidth is-boxed is-large">
+            <ul>
+              <ToggleTilesButton
+                title="With Date"
+                isActiveClass={this.state.showingWithDate ? 'is-active' : ''}
+                toggleTiles={() => { this.toggleTiles(true) }}
+                icon="calendar" />
+              <ToggleTilesButton
+                title="Without Date"
+                isActiveClass={this.state.showingWithDate ? '' : 'is-active'}
+                toggleTiles={() => { this.toggleTiles(false) }}
+                icon="lightbulb-o" />
+            </ul>
+          </div>
+
+          {
+            rowsToRender.length > 0 ?
+              rowsToRender :
+              this.state.loadingReminders ?
+                <RingLoader color="#26A65B" size="256px" /> :
+                <h1 className="title is-3 has-text-centered">There are no reminders in this section.</h1>
+          }
         </div>
-
-        {
-          rowsToRender.length > 0 ?
-            rowsToRender :
-            this.state.loadingReminders ?
-              <RingLoader color="#26A65B" size="256px" /> :
-              <h1 className="title is-3 has-text-centered">There are no reminders in this section.</h1>
-        }
       </div>
     );
   }

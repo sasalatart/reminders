@@ -1,18 +1,31 @@
 import React, { PropTypes } from 'react';
 
-const SubmitInput = ({ disabled=false, loading, onSubmit }) => {
-  return(
-    <div className="control">
-      <button
-        className={loading ? 'button is-primary is-loading' : 'button is-primary'}
-        type="button"
-        onClick={onSubmit}
-        disabled={disabled}>
-        {loading ? 'Submitting...' : 'Submit'}
-      </button>
-    </div>
-  );
-};
+class SubmitInput extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.onSubmit();
+  }
+
+  render() {
+    return(
+      <div className="control">
+        <button
+          className={this.props.loading ? 'button is-primary is-loading' : 'button is-primary'}
+          type="submit"
+          onClick={this.onSubmit}
+          disabled={this.props.disabled || false}>
+          {this.props.loading ? 'Submitting...' : 'Submit'}
+        </button>
+      </div>
+    );
+  }
+}
 
 SubmitInput.propTypes = {
   disabled: PropTypes.bool,

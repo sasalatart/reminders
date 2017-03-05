@@ -1,7 +1,6 @@
 import React from 'react';
-import ReminderTileRow from './ReminderTileRow';
 import ToggleTilesButton from './ToggleTilesButton';
-import RingLoader from '../common/RingLoader';
+import ReminderGallery from '../ReminderGallery/ReminderGallery';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 
@@ -20,7 +19,6 @@ class DashboardPage extends React.Component {
 
     this.getReminders = this.getReminders.bind(this);
     this.toggleTiles = this.toggleTiles.bind(this);
-    this.getRowsToRender = this.getRowsToRender.bind(this);
     this.filterById = this.filterById.bind(this);
     this.onDelete = this.onDelete.bind(this);
 
@@ -45,23 +43,6 @@ class DashboardPage extends React.Component {
     this.setState({ showingWithDate: withDate });
   }
 
-  getRowsToRender() {
-    let rows = [];
-    let reminders = this.state.showingWithDate ? this.state.reminders.withDate : this.state.reminders.withoutDate
-
-    for (let i = 0; i < reminders.length; i += 3) {
-      rows.push(
-        <ReminderTileRow
-          key={i}
-          reminders={reminders}
-          index={i}
-          onDelete={this.onDelete} />
-      );
-    }
-
-    return rows;
-  }
-
   filterById(reminders, deletedReminder) {
     return reminders.filter(reminder => { return reminder.id !== deletedReminder.id });
   }
@@ -79,7 +60,7 @@ class DashboardPage extends React.Component {
   }
 
   render() {
-    const rowsToRender = this.getRowsToRender();
+    const remindersToRender = this.state.showingWithDate ? this.state.reminders.withDate : this.state.reminders.withoutDate;
 
     return(
       <div className="dashboard-page">
@@ -101,13 +82,11 @@ class DashboardPage extends React.Component {
             </ul>
           </div>
 
-          {
-            rowsToRender.length > 0 ?
-              rowsToRender :
-              this.state.loadingReminders ?
-                <RingLoader color="#26A65B" size="256px" /> :
-                <h1 className="title is-3 has-text-centered">There are no reminders in this section.</h1>
-          }
+          <ReminderGallery
+            reminders={remindersToRender}
+            maxPerRow={3}
+            loading={this.state.loadingReminders}
+            onDelete={this.onDelete} />
         </div>
       </div>
     );

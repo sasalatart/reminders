@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import ReminderForm from './ReminderForm';
+import ReminderForm from '../Common/ReminderForm';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 

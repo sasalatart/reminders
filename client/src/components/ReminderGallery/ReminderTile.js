@@ -37,7 +37,7 @@ class ReminderTile extends React.Component {
 
   render() {
     return(
-      <div className="tile is-parent is-4">
+      <div className="tile is-parent">
         <article className="tile is-child box notification is-info">
           <button onClick={this.onDelete} className="delete"></button>
 

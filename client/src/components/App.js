@@ -1,7 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import Header from './common/Header';
-import Footer from './common/Footer';
+import Header from './Common/Header';
+import Footer from './Common/Footer';
 import * as iziToast from '../../node_modules/izitoast/dist/js/iziToast.min.js';
 
 class App extends React.Component {

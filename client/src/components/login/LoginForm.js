@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import TextInput from '../common/TextInput';
-import SubmitInput from '../common/SubmitInput';
+import TextInput from '../Common/TextInput';
+import SubmitInput from '../Common/SubmitInput';
 import { checkEmail, checkDisabled } from '../../utilities/checking';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';

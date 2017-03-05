@@ -4,6 +4,10 @@ require 'jwt'
 module Authenticable
   extend ActiveSupport::Concern
 
+  included do
+    before_validation :downcase_email
+  end
+
   module ClassMethods
     def find_by_jwt(jwt)
       return false unless jwt
@@ -32,5 +36,11 @@ module Authenticable
 
   def generate_jwt
     JWT.encode({ token: token }, ENV['HMAC_SECRET'], 'HS256')
+  end
+
+  private
+
+  def downcase_email
+    self.email = self.email&.downcase
   end
 end

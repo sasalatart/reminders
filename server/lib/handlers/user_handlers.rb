@@ -9,7 +9,7 @@ post '/signup', allows: [:email, :password, :password_confirmation] do
 end
 
 post '/login' do
-  user = User.find_by(email: params[:email])
+  user = User.find_by(email: params[:email]&.downcase)
 
   if user && user.authenticate_and_generate_token(params[:password])
     json user: user.to_json, jwt: user.generate_jwt

@@ -18,11 +18,11 @@ Currently available at https://reminders.salatart.com
 
 1. Clone and cd into this repository
 2. Set the `HMAC_SECRET` environment variable as any string (example: `export HMAC_SECRET=secret`)
-3. cd into `client` and run `npm run build && npm start`
-4. cd back into the root dir of this repository
-5. cd into `server` and run `bundle install`
-6. Run `rake db:create && rake db:migrate`
-7. Run `shotgun config.ru`
+3. cd into `server` and run `bundle install`
+4. Run `rake db:create && rake db:migrate`
+5. Run `shotgun config.ru`
+6. Open a new shell
+7. cd into `client` and run `npm install && npm start`
 
 ##### Docker
 

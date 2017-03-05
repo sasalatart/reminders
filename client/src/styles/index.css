@@ -27,16 +27,24 @@ body {
 }
 
 .is-body {
-  background-image: linear-gradient(180deg, #dfd8d8 0%, whitesmoke 70%, white 100%);
+  background-image: linear-gradient(180deg, #F25757, #F58484);
   flex: 1;
   padding: 1em 0;
 }
 
-header, footer {
-  background-image: linear-gradient(0deg, #dfd8d8 75%, whitesmoke 100%, white 100%);
+header.nav, footer {
+  background-color: #F25757;
   flex: 0;
 }
 
 footer {
   padding: 1em 0;
+}
+
+body, a, a.nav-item, .tabs li.is-active a, .title, .help.is-danger {
+  color: #F2E863;
+}
+
+.tabs.is-boxed li.is-active a {
+  background-color: #DC5050;
 }

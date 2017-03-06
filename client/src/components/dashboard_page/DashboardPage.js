@@ -1,6 +1,6 @@
 import React from 'react';
 import ToggleTilesButton from './ToggleTilesButton';
-import ReminderGallery from '../ReminderGallery/ReminderGallery';
+import ReminderGallery from '../reminder_gallery/ReminderGallery';
 import * as axios from 'axios';
 import * as iziToast from '../../../node_modules/izitoast/dist/js/iziToast.min.js';
 

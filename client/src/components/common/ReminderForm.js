@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import TextInput from '../Common/TextInput';
-import TextAreaInput from '../Common/TextAreaInput';
-import SubmitInput from '../Common/SubmitInput';
-import DatePickerInput from '../Common/DatePickerInput';
-import RingLoader from '../Common/RingLoader';
+import TextInput from './TextInput';
+import TextAreaInput from './TextAreaInput';
+import SubmitInput from './SubmitInput';
+import DatePickerInput from './DatePickerInput';
+import RingLoader from './RingLoader';
 import { errorChecking } from '../../utilities/checking';
 
 let moment = require('moment');

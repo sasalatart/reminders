@@ -42,10 +42,10 @@ class ReminderTile extends React.Component {
           <button onClick={this.onDelete} className="delete"></button>
 
           <p className="title">
-            {this.props.title}
             <Link to={"/edit_reminder/" + this.props.id}>
               <i className="fa fa-edit"></i>
             </Link>
+            {this.props.title}
           </p>
 
           { this.props.dueDate &&

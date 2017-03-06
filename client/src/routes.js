@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/App';
-import SignupPage from './components/Signup/SignupPage';
-import LoginPage from './components/Login/LoginPage';
-import DashboardPage from './components/DashboardPage/DashboardPage';
-import NewReminderPage from './components/NewReminderPage/NewReminderPage';
-import EditReminderPage from './components/EditReminderPage/EditReminderPage';
+import SignupPage from './components/signup/SignupPage';
+import LoginPage from './components/login/LoginPage';
+import DashboardPage from './components/dashboard_page/DashboardPage';
+import NewReminderPage from './components/new_reminder_page/NewReminderPage';
+import EditReminderPage from './components/edit_reminder_page/EditReminderPage';
 
 function requireAuth() {
   let currentToken = localStorage.getItem('token');

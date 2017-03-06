@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReminderTileRow from './ReminderTileRow';
-import RingLoader from '../Common/RingLoader';
+import RingLoader from '../common/RingLoader';
 
 const getRowsToRender = (reminders, maxPerRow, onDelete) => {
   let rows = [];

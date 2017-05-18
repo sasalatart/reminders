@@ -2,7 +2,7 @@ require 'rack'
 require 'rack/contrib'
 require 'rack/parser'
 require 'plissken'
-require_relative './lib/app'
+require_relative './server/app'
 
 use Rack::PostBodyContentTypeParser
 

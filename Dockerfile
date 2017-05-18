@@ -8,16 +8,12 @@ RUN mkdir -p /usr/src/app
 
 COPY . /usr/src/app
 
-WORKDIR /usr/src/app/client
+WORKDIR /usr/src/app
 
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get install -y nodejs && apt-get clean && \
-    npm install && npm run build
-
-WORKDIR /usr/src/app/server
-
-RUN bundle install --without development test
+    rake prod:install
 
 EXPOSE 9292
 
-CMD ["rackup", "config.ru"]
+CMD ["rackup"]
